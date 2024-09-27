@@ -1,0 +1,35 @@
+<div class="calendar-container">
+	<div class="calendar-layout">
+		<!-- Calendar grid to display days and appointments -->
+		<div class="calendar-grid" cdkDropListGroup>
+			<div *ngFor="let day of calendarDays" class="calendar-day" 
+				 [class.today]="isToday(day)"
+				 cdkDropList
+				 [cdkDropListData]="getAppointmentsForDay(day)" 
+				 (cdkDropListDropped)="onDrop($event)" 
+				 [id]="day.toISOString()">
+				<!-- Day header displaying weekday and date -->
+				<div class="day-header">
+					<span class="weekday">{{ getWeekday(day) }}</span>
+					<span class="date">{{ day | date:'d' }}</span>
+				</div>
+				<!-- List of appointments for the day -->
+				<div *ngFor="let appointment of getAppointmentsForDay(day)" 
+					 cdkDrag >
+					<div class="appointment-container">
+						<span class="appointment-title">{{ appointment.title | truncate:5 }}</span>
+						<span class="appointment-time">{{ appointment.date | date:'shortTime' }}</span>
+												<!-- Delete button for the appointment -->
+						<button class="delete-btn" (click)="deleteAppointment(appointment)">×</button>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<!-- Form to add a new appointment -->
+		<aside class="appointment-form-container">
+			<h2>Add Appointment</h2>
+			<app-appointment-form (appointmentAdded)="onAppointmentAdded($event)"></app-appointment-form>
+		</aside>
+	</div>
+</div>

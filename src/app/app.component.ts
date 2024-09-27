@@ -1,13 +1,11 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { CalendarComponent } from './shared/widgets/calendar/calendar.component';
+import { PublicComponent } from "./layouts/public/public.layout";
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet],
-  templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+	selector: 'app-root',
+	standalone: true,
+	imports: [CalendarComponent, PublicComponent],
+	template: `<app-public></app-public>`
 })
-export class AppComponent {
-  title = 'calendar';
-}
+export class AppComponent { }
